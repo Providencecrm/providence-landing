@@ -1,17 +1,31 @@
 export default function Navbar() {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-md">
-      <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
-        <span className="text-lg font-semibold text-text-primary">Providence</span>
-        <div className="flex items-center gap-8 text-sm text-text-secondary">
-          <a href="#solution" className="hover:text-text-primary transition-colors">Solution</a>
-          <a href="#comment" className="hover:text-text-primary transition-colors">Comment ça marche</a>
-          <a href="#tarifs" className="hover:text-text-primary transition-colors">Tarifs</a>
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-surface-elevated/95 backdrop-blur-sm">
+      <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
+        {/* Logo */}
+        <a href="#" className="flex items-center gap-4 group">
+          <div className="relative h-10 w-10 flex items-center justify-center flex-shrink-0">
+            <div className="absolute inset-0 bg-brand rotate-45 group-hover:bg-brand-dark" />
+            <span className="relative z-10 text-white font-bold text-sm">P</span>
+          </div>
+          <span className="type-label text-[0.8rem] text-text-primary tracking-[0.22em]">Providence</span>
+        </a>
+
+        {/* Nav links */}
+        <div className="hidden md:flex items-center gap-8">
+          {[
+            { label: "Solution", href: "#solution" },
+            { label: "Comment ça marche", href: "#comment" },
+            { label: "Tarifs", href: "#tarifs" },
+          ].map((item) => (
+            <a key={item.label} href={item.href} className="type-label text-[0.62rem] text-text-tertiary hover:text-text-primary">
+              {item.label}
+            </a>
+          ))}
         </div>
-        <a
-          href="#demo"
-          className="rounded-lg bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-dark transition-colors"
-        >
+
+        {/* CTA */}
+        <a href="#demo" className="type-btn bg-brand text-white px-6 py-3 hover:bg-brand-dark">
           Demander une démo
         </a>
       </div>
