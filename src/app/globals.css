@@ -97,6 +97,9 @@ body::after {
 .delay-200 { animation-delay: 200ms; }
 .delay-300 { animation-delay: 300ms; }
 .delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+.delay-600 { animation-delay: 600ms; }
+.delay-700 { animation-delay: 700ms; }
 
 /* ── Transitions globales ────────────────── */
 
@@ -118,6 +121,64 @@ a, button {
 .card-lift:hover {
   transform: translateY(-3px);
   box-shadow: 0 14px 36px rgba(26, 22, 24, 0.08);
+}
+
+/* ── Logo animations ─────────────────────── */
+
+@keyframes diamondIn {
+  from { opacity: 0; transform: scale(0.5); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes brandTextIn {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.logo-diamond-anim {
+  animation: diamondIn 0.65s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.logo-diamond-anim:hover { transform: scale(1.08); }
+.logo-text-anim {
+  animation: brandTextIn 0.55s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+/* ── Hero line reveal ────────────────────── */
+
+.line-reveal { display: block; overflow: hidden; }
+
+@keyframes lineReveal {
+  from { transform: translateY(108%); }
+  to   { transform: translateY(0); }
+}
+.line-reveal-inner {
+  display: block;
+  animation: lineReveal 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ── Scroll reveal ───────────────────────── */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+[data-reveal].revealed { opacity: 1; transform: translateY(0); }
+[data-reveal][data-delay="100"] { transition-delay: 100ms; }
+[data-reveal][data-delay="150"] { transition-delay: 150ms; }
+[data-reveal][data-delay="200"] { transition-delay: 200ms; }
+[data-reveal][data-delay="300"] { transition-delay: 300ms; }
+[data-reveal][data-delay="400"] { transition-delay: 400ms; }
+[data-reveal][data-delay="500"] { transition-delay: 500ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal], .logo-diamond-anim, .logo-text-anim, .line-reveal-inner,
+  .animate-fade-in, .animate-fade-in-up {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 /* ── Accordion fluide ────────────────────── */

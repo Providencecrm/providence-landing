@@ -4,11 +4,11 @@ export default function Navbar() {
       <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <a href="#" className="flex items-center gap-4 group">
-          <div className="relative h-11 w-11 flex items-center justify-center flex-shrink-0">
-            <div className="absolute inset-0 bg-brand rotate-45 group-hover:bg-brand-dark" />
+          <div className="relative h-11 w-11 flex items-center justify-center flex-shrink-0 logo-diamond-anim">
+            <div className="absolute inset-0 bg-brand rotate-45 group-hover:bg-brand-dark" style={{ transition: "background-color 0.15s ease" }} />
             <span className="relative z-10 text-white font-bold text-base">P</span>
           </div>
-          <span className="font-bold text-text-primary uppercase tracking-[0.28em] text-[1.05rem]">Providence</span>
+          <span className="font-bold text-text-primary uppercase tracking-[0.28em] text-[1.05rem] logo-text-anim">Providence</span>
         </a>
 
         {/* Nav links */}
@@ -26,7 +26,7 @@ export default function Navbar() {
 
         {/* CTA */}
         <a href="#demo" className="type-btn bg-brand text-white px-6 py-3 hover:bg-brand-dark">
-          Demander une démo
+          Essai gratuit 48h
         </a>
       </div>
     </nav>

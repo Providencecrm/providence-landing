@@ -55,7 +55,7 @@ export default function Pricing() {
   return (
     <section id="tarifs" className="py-32 bg-surface">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="max-w-xl mb-16">
+        <div className="max-w-xl mb-16" data-reveal="">
           <p className="type-label text-text-tertiary mb-5">Tarifs // Plans</p>
           <h2 className="type-heading text-[clamp(2rem,5vw,3.5rem)] text-text-primary mb-6">
             Simple, transparent,{" "}
@@ -68,13 +68,15 @@ export default function Pricing() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-px bg-border">
-          {plans.map((plan) => (
+          {plans.map((plan, index) => (
             <div
               key={plan.name}
               className={cn(
                 "relative flex flex-col p-8",
                 plan.featured ? "bg-brand" : "bg-white"
               )}
+              data-reveal=""
+              data-delay={String(index * 150)}
             >
               {plan.featured && (
                 <div className="absolute top-0 left-8">

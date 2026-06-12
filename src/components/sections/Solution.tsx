@@ -413,11 +413,18 @@ function AppMockup({ profile }: { profile: Profile }) {
 
 export default function Solution() {
   const [active, setActive] = useState(profiles[0]);
+  const [visible, setVisible] = useState(true);
+
+  function switchProfile(p: Profile) {
+    if (p.id === active.id) return;
+    setVisible(false);
+    setTimeout(() => { setActive(p); setVisible(true); }, 180);
+  }
 
   return (
     <section id="solution" className="py-32 bg-surface-elevated">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="max-w-2xl mb-20">
+        <div className="max-w-2xl mb-20" data-reveal="">
           <p className="type-label text-text-tertiary mb-5">La solution // Providence</p>
           <h2 className="type-heading text-[clamp(2rem,5vw,3.5rem)] text-text-primary mb-6">
             Un CRM qui vous <span className="text-brand">reconnaît.</span>
@@ -429,7 +436,7 @@ export default function Solution() {
         </div>
 
         {/* Comparison */}
-        <div className="mb-20 border border-border">
+        <div className="mb-20 border border-border" data-reveal="" data-delay="100">
           <div className="grid grid-cols-2">
             <div className="px-6 py-3 bg-surface border-b border-r border-border">
               <p className="type-label text-[0.58rem] text-text-tertiary">CRM classique</p>
@@ -463,7 +470,7 @@ export default function Solution() {
             {profiles.map((p) => (
               <button
                 key={p.id}
-                onClick={() => setActive(p)}
+                onClick={() => switchProfile(p)}
                 className={cn(
                   "type-label text-[0.62rem] px-7 py-3",
                   active.id === p.id
@@ -513,7 +520,9 @@ export default function Solution() {
             </div>
 
             {/* App mockup */}
-            <AppMockup key={active.id} profile={active} />
+            <div style={{ transition: "opacity 0.18s ease", opacity: visible ? 1 : 0 }}>
+              <AppMockup profile={active} />
+            </div>
           </div>
         </div>
       </div>

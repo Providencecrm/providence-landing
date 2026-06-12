@@ -27,7 +27,7 @@ export default function Problem() {
   return (
     <section id="probleme" className="py-32 bg-surface">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="max-w-2xl mb-20">
+        <div className="max-w-2xl mb-20" data-reveal="">
           <p className="type-label text-text-tertiary mb-5">Le problème // Pourquoi changer</p>
           <h2 className="type-heading text-[clamp(2rem,5vw,3.5rem)] text-text-primary mb-6">
             Votre CRM a été conçu pour un commercial{" "}
@@ -42,7 +42,7 @@ export default function Problem() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
           {/* Frustrations */}
-          <div className="flex flex-col gap-px bg-border">
+          <div className="flex flex-col gap-px bg-border" data-reveal="" data-delay="100">
             {frustrations.map((item) => (
               <div key={item.profile} className="bg-white p-6 card-lift">
                 <div className="flex items-center gap-3 mb-3">
@@ -58,7 +58,7 @@ export default function Problem() {
           </div>
 
           {/* Coûts */}
-          <div className="flex flex-col gap-4 lg:pt-8">
+          <div className="flex flex-col gap-4 lg:pt-8" data-reveal="" data-delay="200">
             {/* Featured stat — bordeaux card */}
             <div className="card-lift bg-brand p-7">
               <p className="type-label text-[0.58rem] text-white/60 mb-3">

@@ -29,7 +29,7 @@ export default function HowItWorks() {
   return (
     <section id="comment" className="py-32 bg-surface">
       <div className="mx-auto max-w-7xl px-6">
-        <div className="max-w-xl mb-20">
+        <div className="max-w-xl mb-20" data-reveal="">
           <p className="type-label text-text-tertiary mb-5">Comment ça marche // 4 étapes</p>
           <h2 className="type-heading text-[clamp(2rem,5vw,3.5rem)] text-text-primary mb-6">
             Opérationnel en <span className="text-brand">une journée.</span>
@@ -42,8 +42,8 @@ export default function HowItWorks() {
 
         {/* Steps */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border">
-          {steps.map((step) => (
-            <div key={step.number} className="bg-white p-7 card-lift flex flex-col gap-5">
+          {steps.map((step, index) => (
+            <div key={step.number} className="bg-white p-7 card-lift flex flex-col gap-5" data-reveal="" data-delay={String(index * 100)}>
               <div className="flex items-end gap-3">
                 <span className="text-5xl font-bold text-border leading-none select-none">
                   {step.number}
@@ -70,7 +70,7 @@ export default function HowItWorks() {
             </p>
           </div>
           <a href="#demo" className="type-btn bg-brand text-white px-6 py-3 hover:bg-brand-dark whitespace-nowrap text-[0.6rem] flex-shrink-0">
-            Voir une démo
+            Essai gratuit 48h
           </a>
         </div>
       </div>

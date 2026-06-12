@@ -20,7 +20,7 @@ export default function CTA() {
             href="mailto:contact@providence.app"
             className="type-btn bg-white text-brand px-8 py-4 text-[0.6rem] hover:bg-white/90"
           >
-            Demander une démo
+            Essai gratuit 48h sur base de données fictive
           </a>
           <a href="#tarifs" className="type-label text-[0.6rem] text-white/60 hover:text-white/90">
             Essayer gratuitement →

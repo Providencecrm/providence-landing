@@ -60,14 +60,14 @@ export default function SocialProof() {
       <div className="mx-auto max-w-7xl px-6">
         {/* Header */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10 mb-16">
-          <div className="max-w-xl">
+          <div className="max-w-xl" data-reveal="">
             <p className="type-label text-text-tertiary mb-5">Témoignages // Clients</p>
             <h2 className="type-heading text-[clamp(2rem,5vw,3.5rem)] text-text-primary">
               Des équipes qui performent enfin{" "}
               <span className="text-brand">avec leur CRM.</span>
             </h2>
           </div>
-          <div className="flex gap-10 flex-shrink-0">
+          <div className="flex gap-10 flex-shrink-0" data-reveal="" data-delay="150">
             {metrics.map((m) => (
               <div key={m.value}>
                 <p className="text-4xl font-bold tracking-tight text-brand">{m.value}</p>
@@ -79,7 +79,7 @@ export default function SocialProof() {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-border" data-reveal="" data-delay="200">
           {testimonials.map((t) => (
             <div
               key={t.name}
