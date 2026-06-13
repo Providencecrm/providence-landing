@@ -26,7 +26,7 @@ const profiles = [
 
 export default function Hero() {
   return (
-    <section id="hero" className="min-h-screen flex items-center pt-14 bg-white">
+    <section id="hero" className="min-h-screen flex items-center pt-[6.25rem] bg-white">
       <div className="mx-auto max-w-7xl px-6 py-24 w-full grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
         {/* Left */}
         <div className="flex flex-col gap-10">

@@ -1,3 +1,4 @@
+import CountdownBanner from "@/components/CountdownBanner";
 import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
 import Problem from "@/components/sections/Problem";
@@ -13,6 +14,7 @@ import Animations from "@/components/Animations";
 export default function Home() {
   return (
     <main>
+      <CountdownBanner />
       <Navbar />
       <Hero />
       <Problem />
