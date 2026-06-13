@@ -36,8 +36,8 @@ export default function CountdownBanner() {
   ];
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-[60] h-9 flex items-center justify-center gap-5"
-      style={{ background: "#1A1618", borderBottom: "1px solid #2E2A2C" }}>
+    <div className="fixed top-0 left-0 right-0 z-[60] h-9 flex items-center justify-center gap-5 backdrop-blur-md"
+      style={{ background: "rgba(26,22,24,0.55)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
 
       <span className="type-label tracking-[0.18em] text-brand" style={{ fontSize: "0.5rem" }}>
         BIENTÔT DISPONIBLE
