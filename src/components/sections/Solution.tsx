@@ -135,278 +135,372 @@ const profiles: Profile[] = [
   },
 ];
 
-/* ── Sous-composants ──────────────────────── */
+/* ── Mockup Analytique — dark mode Salesforce-like ── */
 
-function EngagementDots({ score }: { score: number }) {
-  return (
-    <div className="flex gap-0.5">
-      {[1, 2, 3, 4, 5].map((i) => (
-        <div
-          key={i}
-          className={cn("h-1.5 w-1.5 rounded-full", i <= score ? "bg-brand" : "bg-border")}
-        />
-      ))}
-    </div>
-  );
-}
+function AnalytiqueMockup({ profile }: { profile: Profile }) {
+  const bars = profile.bars!;
+  const days = ["L", "M", "M", "J", "V", "S", "D"];
+  const BG    = "#16191F";
+  const PANEL = "#1E2330";
+  const BD    = "#2E3448";
+  const BLUE  = "#1B96FF";
+  const BDIM  = "#0176D3";
+  const TXT   = "#E5E9F2";
+  const DIM   = "#7B8399";
+  const GRN   = "#4BCE7A";
 
-function StatusBadge({ status }: { status: Contact["status"] }) {
-  const map = {
-    active: { label: "Actif", color: "text-[#2E7D32]" },
-    relay: { label: "→ Relancer", color: "text-brand" },
-    risk: { label: "! Attention", color: "text-[#B45309]" },
-  };
-  const s = map[status];
-  return <span className={cn("type-label flex-shrink-0", s.color)} style={{ fontSize: "0.37rem" }}>{s.label}</span>;
-}
+  const tiles = [
+    { label: "Quota atteint",  value: `${profile.progressPct}%`, delta: "↗ +12% vs T3",    color: GRN  },
+    { label: "Pipeline total",  value: "142 500 €",               delta: "↗ +8 000 ce mois", color: BLUE },
+    { label: "Deals actifs",    value: "18",                      delta: "5 chauds",          color: TXT  },
+    { label: "Taux closing",    value: profile.mainMetric,        delta: "↗ +5 pts",          color: GRN  },
+  ];
 
-function UrgencyBadge({ urgency }: { urgency: Priority["urgency"] }) {
-  const map = {
-    urgent: { label: "Urgent", bg: "bg-brand text-white" },
-    today: { label: "Aujourd'hui", bg: "bg-[#1A1618] text-white" },
-    tomorrow: { label: "Demain", bg: "bg-border text-text-secondary" },
-  };
-  const u = map[urgency];
-  return (
-    <span className={cn("type-label px-1.5 py-0.5", u.bg)} style={{ fontSize: "0.36rem" }}>
-      {u.label}
-    </span>
-  );
-}
-
-function AppMockup({ profile }: { profile: Profile }) {
-  const days = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
+  const deals = [
+    { name: "Nexus SA",    value: "28 000 €", stage: "Négociation",  pct: 80 },
+    { name: "Orbit Inc.",  value: "12 000 €", stage: "Proposition",  pct: 55 },
+    { name: "Pulse Corp",  value: "8 500 €",  stage: "Qualification", pct: 35 },
+  ];
 
   return (
-    <div className="border border-border bg-surface-elevated overflow-hidden"
-      style={{ boxShadow: "0 24px 64px rgba(26,22,24,0.10), 0 4px 16px rgba(26,22,24,0.06)" }}>
-
-      {/* ── Top bar ── */}
-      <div className="border-b border-border px-3 py-2 flex items-center justify-between bg-surface-elevated">
-        <div className="flex items-center gap-2">
-          <div className="relative h-4 w-4 flex-shrink-0 flex items-center justify-center">
-            <div className="absolute inset-0 bg-brand rotate-45 scale-90" />
-            <span className="relative z-10 text-white font-bold" style={{ fontSize: "5.5px" }}>P</span>
-          </div>
-          <span className="font-bold text-text-primary uppercase" style={{ fontSize: "0.5rem", letterSpacing: "0.2em" }}>
-            Providence
-          </span>
+    <div style={{ background: BG, border: `1px solid ${BD}`, overflow: "hidden", boxShadow: "0 24px 64px rgba(0,0,0,.6)" }}>
+      {/* Top bar */}
+      <div style={{ background: "#0D1117", borderBottom: `1px solid ${BD}`, padding: "5px 12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+          <div style={{ width: 12, height: 12, background: BDIM, transform: "rotate(45deg)", flexShrink: 0 }} />
+          <span style={{ color: BLUE, fontWeight: 700, fontSize: "0.44rem", letterSpacing: "0.16em", textTransform: "uppercase" }}>Providence</span>
+          <span style={{ color: BD, fontSize: "0.28rem", margin: "0 2px" }}>|</span>
+          <span style={{ color: DIM, fontSize: "0.28rem", letterSpacing: "0.08em" }}>Analytics</span>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="text-right">
-            <span className="type-label text-text-tertiary block" style={{ fontSize: "0.4rem" }}>
-              {profile.user.split(" ")[0][0]}. {profile.user.split(" ")[1]}
-            </span>
-            <span className="type-label text-text-tertiary block" style={{ fontSize: "0.36rem" }}>
-              {profile.role.toUpperCase()}
-            </span>
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <span style={{ color: DIM, fontSize: "0.28rem" }}>M. Dupont</span>
+          <div style={{ background: "#0D3349", border: `1px solid ${BDIM}`, padding: "1px 5px" }}>
+            <span style={{ color: BLUE, fontSize: "0.24rem", fontWeight: 600, letterSpacing: "0.06em" }}>● ACTIF</span>
           </div>
-          <div className="h-5 w-5 bg-brand flex items-center justify-center">
-            <span className="text-white font-bold" style={{ fontSize: "5.5px" }}>{profile.initials}</span>
+          <div style={{ width: 18, height: 18, background: BDIM, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ color: "white", fontWeight: 700, fontSize: "4.5px" }}>MD</span>
           </div>
         </div>
       </div>
 
-      {/* ── Nav tabs ── */}
-      <div className="border-b border-border px-3 flex items-center gap-3 bg-surface-elevated overflow-hidden">
-        {profile.navItems.map((tab) => (
-          <div
-            key={tab}
-            className={cn(
-              "py-1.5 flex-shrink-0 border-b-2",
-              tab === profile.navActive ? "border-brand" : "border-transparent"
-            )}
-          >
-            <span
-              className={cn("type-label", tab === profile.navActive ? "text-brand" : "text-text-tertiary")}
-              style={{ fontSize: "0.4rem" }}
-            >
-              {tab.toUpperCase()}
-            </span>
+      {/* Tabs */}
+      <div style={{ background: "#0D1117", borderBottom: `1px solid ${BD}`, padding: "0 10px", display: "flex" }}>
+        {["Dashboard", "Analytics", "Pipeline", "Objectifs", "Forecast"].map((tab) => (
+          <div key={tab} style={{ padding: "5px 7px", borderBottom: tab === "Analytics" ? `2px solid ${BLUE}` : "2px solid transparent", marginBottom: -1 }}>
+            <span style={{ color: tab === "Analytics" ? BLUE : DIM, fontSize: "0.3rem", letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: tab === "Analytics" ? 600 : 400 }}>{tab}</span>
           </div>
         ))}
       </div>
 
-      {/* ── Content ── */}
-      <div className="p-3 bg-surface-elevated">
-        {/* Header */}
-        <div className="flex items-start justify-between mb-2.5">
-          <div>
-            <p className="type-label text-text-tertiary mb-0.5" style={{ fontSize: "0.38rem" }}>
-              Tableau de bord // {profile.user.toUpperCase()}
-            </p>
-            <h3 className="type-heading font-black text-text-primary leading-none"
-              style={{ fontSize: "1.25rem", letterSpacing: "0.06em" }}>
-              {profile.viewTitle.toUpperCase()}
-            </h3>
-          </div>
-          <div className="flex items-start gap-2">
-            <div className="text-right">
-              <p className="type-label text-text-tertiary" style={{ fontSize: "0.36rem" }}>
-                {profile.mainMetricLabel.toUpperCase()}
-              </p>
-              <p className="font-bold text-text-primary" style={{ fontSize: "1.1rem", letterSpacing: "0.01em" }}>
-                {profile.mainMetric}
-              </p>
+      {/* Content */}
+      <div style={{ padding: "8px 10px", background: BG }}>
+        {/* 4 metric tiles */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 4, marginBottom: 7 }}>
+          {tiles.map((t) => (
+            <div key={t.label} style={{ background: PANEL, border: `1px solid ${BD}`, padding: "5px 6px" }}>
+              <p style={{ color: DIM, fontSize: "0.24rem", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 2 }}>{t.label}</p>
+              <p style={{ color: t.color, fontWeight: 700, fontSize: "0.72rem", lineHeight: 1, marginBottom: 1 }}>{t.value}</p>
+              <p style={{ color: DIM, fontSize: "0.22rem" }}>{t.delta}</p>
             </div>
-            <div className="bg-brand px-2 py-1">
-              <span className="type-btn text-white" style={{ fontSize: "0.36rem" }}>Détail</span>
-            </div>
-          </div>
+          ))}
         </div>
 
-        {/* Progress bar */}
-        <div className="border border-border p-2 mb-2 bg-surface">
-          <div className="flex items-center justify-between mb-1">
-            <span className="type-label text-text-primary" style={{ fontSize: "0.4rem" }}>
-              {profile.progressLabel.toUpperCase()}
-            </span>
-            <div className="flex items-center gap-2">
-              <span className="type-label text-brand" style={{ fontSize: "0.38rem" }}>
-                ■ Complétion : {profile.progressPct}%
-              </span>
+        {/* Chart + deals */}
+        <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr", gap: 5 }}>
+          {/* Bar chart */}
+          <div style={{ background: PANEL, border: `1px solid ${BD}`, padding: "6px 8px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 7 }}>
+              <div>
+                <p style={{ color: TXT, fontSize: "0.3rem", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 1 }}>Closing hebdomadaire</p>
+                <p style={{ color: DIM, fontSize: "0.24rem" }}>Taux moyen · 63%</p>
+              </div>
+              <div style={{ background: "#0D3349", border: `1px solid ${BD}`, padding: "1px 5px" }}>
+                <span style={{ color: BLUE, fontSize: "0.22rem" }}>↓ Export</span>
+              </div>
             </div>
-          </div>
-          <div className="h-2 w-full bg-border-subtle">
-            <div className="h-2 bg-brand transition-all duration-700" style={{ width: `${profile.progressPct}%` }} />
-          </div>
-          <div className="flex justify-between mt-0.5">
-            <span className="type-label text-text-tertiary" style={{ fontSize: "0.32rem" }}>0% initial</span>
-            <span className="type-label text-text-tertiary" style={{ fontSize: "0.32rem" }}>100% target</span>
-          </div>
-        </div>
-
-        {/* Bottom row: widget + card */}
-        <div className="grid grid-cols-5 gap-2">
-          {/* Left widget — 3 cols */}
-          <div className="col-span-3 border border-border bg-surface-elevated p-2">
-            <p className="type-label text-text-primary mb-0.5" style={{ fontSize: "0.4rem" }}>
-              {profile.chartTitle.toUpperCase()}
-            </p>
-            <p className="type-label text-text-tertiary mb-2" style={{ fontSize: "0.36rem" }}>
-              {profile.chartSub.toUpperCase()}
-            </p>
-
-            {/* BAR CHART — Analytique */}
-            {profile.chartType === "bars" && (
-              <div className="flex items-end gap-0.5 h-12">
-                {profile.bars!.map((h, i) => (
-                  <div key={i} className="flex flex-col items-center gap-0.5 flex-1">
-                    <div
-                      className="w-full"
-                      style={{
-                        height: `${h * 0.44}px`,
-                        backgroundColor: h > 75 ? "#7B1C2E" : h > 55 ? "#9E2A40" : "#C4556A",
-                      }}
-                    />
-                    <span className="type-label text-text-tertiary" style={{ fontSize: "0.3rem" }}>{days[i]}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* CONTACT LIST — Expressif */}
-            {profile.chartType === "contacts" && (
-              <div className="flex flex-col gap-1.5">
-                {profile.contacts!.map((c) => (
-                  <div key={c.name} className="flex items-center gap-1.5 border-b border-border-subtle pb-1.5 last:border-0 last:pb-0">
-                    <div className="h-4 w-4 bg-brand flex-shrink-0 flex items-center justify-center">
-                      <span className="text-white font-bold" style={{ fontSize: "4.5px" }}>{c.initials}</span>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="type-label text-text-primary truncate" style={{ fontSize: "0.38rem" }}>
-                        {c.name}
-                      </p>
-                      <p className="type-label text-text-tertiary truncate" style={{ fontSize: "0.34rem" }}>
-                        {c.company}
-                      </p>
-                    </div>
-                    <EngagementDots score={c.score} />
-                    <StatusBadge status={c.status} />
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* PRIORITY LIST — Conducteur */}
-            {profile.chartType === "priorities" && (
-              <div className="flex flex-col gap-1.5">
-                {profile.priorities!.map((p) => (
-                  <div key={p.rank} className="flex items-center gap-1.5 border-b border-border-subtle pb-1.5 last:border-0 last:pb-0">
-                    <span
-                      className="type-heading text-text-tertiary flex-shrink-0 w-3 text-center"
-                      style={{ fontSize: "0.55rem" }}
-                    >
-                      {p.rank}
-                    </span>
-                    <div className="h-1.5 w-1.5 bg-brand flex-shrink-0" />
-                    <div className="flex-1 min-w-0">
-                      <p className="type-label text-text-primary truncate" style={{ fontSize: "0.38rem" }}>
-                        {p.name.toUpperCase()}
-                      </p>
-                      <p className="font-semibold text-text-primary" style={{ fontSize: "0.5rem" }}>{p.value}</p>
-                    </div>
-                    <UrgencyBadge urgency={p.urgency} />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Right card bordeaux — 2 cols */}
-          <div className="col-span-2 bg-brand p-2 flex flex-col">
-            <p className="type-label text-white/50 mb-1" style={{ fontSize: "0.38rem" }}>
-              {profile.cardTitle.toUpperCase()}
-            </p>
-            <p className="font-bold text-white leading-none mb-0.5"
-              style={{ fontSize: profile.cardValue.length > 4 ? "0.95rem" : "1.2rem", letterSpacing: "0.01em" }}>
-              {profile.cardValue}
-            </p>
-            <p className="type-label text-white/60 mb-2" style={{ fontSize: "0.35rem" }}>
-              {profile.cardDelta}
-            </p>
-            <div className="flex flex-col gap-1 mb-auto">
-              {profile.cardRows.map((row) => (
-                <div key={row.label}>
-                  <p className="type-label text-white/40" style={{ fontSize: "0.33rem" }}>
-                    {row.label.toUpperCase()}
-                  </p>
-                  <p className="font-semibold text-white" style={{ fontSize: "0.55rem" }}>{row.value}</p>
+            <div style={{ display: "flex", alignItems: "flex-end", gap: 2, height: 36 }}>
+              {bars.map((h, i) => (
+                <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+                  <div style={{ width: "100%", height: `${h * 0.34}px`, background: h > 75 ? BLUE : h > 55 ? BDIM : BD, boxShadow: h > 75 ? `0 0 5px rgba(27,150,255,.45)` : undefined }} />
+                  <span style={{ color: DIM, fontSize: "0.21rem" }}>{days[i]}</span>
                 </div>
               ))}
             </div>
-            <div className="border border-white/20 text-center py-1 mt-2">
-              <span className="type-label text-white/70" style={{ fontSize: "0.35rem" }}>
-                {profile.cardCta.toUpperCase()}
-              </span>
+            <div style={{ display: "flex", gap: 8, marginTop: 5, paddingTop: 4, borderTop: `1px solid ${BD}` }}>
+              {([[GRN, "Haut"], [BDIM, "Moyen"], [BD, "Bas"]] as [string,string][]).map(([c, l]) => (
+                <span key={l} style={{ color: c, fontSize: "0.21rem" }}>■ {l}</span>
+              ))}
+            </div>
+          </div>
+
+          {/* Deals list */}
+          <div style={{ background: PANEL, border: `1px solid ${BD}`, padding: "6px 8px", display: "flex", flexDirection: "column" }}>
+            <p style={{ color: TXT, fontSize: "0.28rem", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 6 }}>Deals prioritaires</p>
+            {deals.map((d, i) => (
+              <div key={d.name} style={{ paddingBottom: i < 2 ? 5 : 0, marginBottom: i < 2 ? 5 : 0, borderBottom: i < 2 ? `1px solid ${BD}` : "none" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 2 }}>
+                  <span style={{ color: TXT, fontSize: "0.28rem", fontWeight: 600 }}>{d.name}</span>
+                  <span style={{ color: GRN, fontSize: "0.28rem", fontWeight: 700 }}>{d.value}</span>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
+                  <span style={{ color: DIM, fontSize: "0.23rem" }}>{d.stage}</span>
+                  <span style={{ color: DIM, fontSize: "0.23rem" }}>{d.pct}%</span>
+                </div>
+                <div style={{ height: 3, background: BD }}>
+                  <div style={{ height: 3, background: d.pct > 70 ? GRN : BLUE, width: `${d.pct}%`, transition: "width .7s" }} />
+                </div>
+              </div>
+            ))}
+            <div style={{ marginTop: "auto", paddingTop: 5, borderTop: `1px solid ${BD}` }}>
+              <p style={{ color: DIM, fontSize: "0.23rem", textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 1 }}>Commission potentielle</p>
+              <p style={{ color: TXT, fontWeight: 700, fontSize: "0.52rem" }}>37 350 €</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ── Status bar ── */}
-      <div className="border-t border-border bg-[#1A1618] px-3 py-1 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1">
-            <div className="h-1.5 w-1.5 bg-brand" />
-            <span className="type-label text-white/50" style={{ fontSize: "0.33rem" }}>ASSISTANT</span>
-          </div>
-          <span className="type-label text-white/25" style={{ fontSize: "0.33rem" }}>VERSION 1.2</span>
+      {/* Status bar */}
+      <div style={{ background: "#0D1117", borderTop: `1px solid ${BD}`, padding: "3px 12px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+          <span style={{ color: GRN, fontSize: "0.23rem", letterSpacing: "0.08em" }}>● Connecté</span>
+          <span style={{ color: BD }}>|</span>
+          <span style={{ color: DIM, fontSize: "0.23rem" }}>Synchro il y a 2 min</span>
+          <span style={{ color: BD }}>|</span>
+          <span style={{ color: DIM, fontSize: "0.23rem" }}>v2.4.1</span>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="type-label text-white/40" style={{ fontSize: "0.33rem" }}>
-            OBJECTIF DU MOIS
-          </span>
-          <div className="flex items-center gap-0.5">
-            <div className="h-1 w-10 bg-white/10">
-              <div className="h-1 bg-brand" style={{ width: `${profile.progressPct}%` }} />
-            </div>
-            <span className="type-label text-brand" style={{ fontSize: "0.33rem" }}>{profile.progressPct}%</span>
+        <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+          <span style={{ color: DIM, fontSize: "0.23rem", textTransform: "uppercase", letterSpacing: "0.06em" }}>Quota</span>
+          <div style={{ height: 3, width: 36, background: BD }}>
+            <div style={{ height: 3, background: GRN, width: `${profile.progressPct}%` }} />
           </div>
+          <span style={{ color: GRN, fontSize: "0.23rem", fontWeight: 700 }}>{profile.progressPct}%</span>
         </div>
       </div>
     </div>
   );
+}
+
+/* ── Mockup Expressif — CRM épuré avec photos ── */
+
+function ExpressifMockup({ profile }: { profile: Profile }) {
+  const BD  = "#E8ECF2";
+  const SF  = "#F5F7FA";
+  const TXT = "#111827";
+  const DIM = "#6B7280";
+  const ACC = "#EA580C";
+
+  const extras = [
+    { photo: "https://i.pravatar.cc/32?img=5",  last: "Lundi dernier",  tag: "Relancer",   tagClr: ACC,      tagBg: "#FFF7ED" },
+    { photo: "https://i.pravatar.cc/32?img=12", last: "Il y a 5 jours", tag: "En cours",   tagClr: "#16A34A", tagBg: "#F0FDF4" },
+    { photo: "https://i.pravatar.cc/32?img=47", last: "Il y a 12 j.",   tag: "Attention",  tagClr: "#DC2626", tagBg: "#FEF2F2" },
+    { photo: "https://i.pravatar.cc/32?img=33", last: "Il y a 3 jours", tag: "Relancer",   tagClr: ACC,      tagBg: "#FFF7ED" },
+  ];
+  const contacts = profile.contacts!.map((c, i) => ({ ...c, ...extras[i] }));
+
+  return (
+    <div style={{ background: "#FFFFFF", border: `1px solid ${BD}`, overflow: "hidden", boxShadow: "0 16px 48px rgba(0,0,0,.07), 0 2px 8px rgba(0,0,0,.04)" }}>
+      {/* Top bar — very minimal */}
+      <div style={{ background: "white", borderBottom: `1px solid ${BD}`, padding: "5px 14px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+          <div style={{ width: 10, height: 10, background: ACC, transform: "rotate(45deg)", flexShrink: 0 }} />
+          <span style={{ color: TXT, fontWeight: 700, fontSize: "0.42rem", letterSpacing: "0.1em" }}>Providence</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          {["Dashboard", "Contacts", "Engagement", "Agenda"].map((t) => (
+            <span key={t} style={{ color: t === "Engagement" ? ACC : DIM, fontSize: "0.28rem", fontWeight: t === "Engagement" ? 600 : 400, borderBottom: t === "Engagement" ? `1.5px solid ${ACC}` : "none", paddingBottom: 1 }}>{t}</span>
+          ))}
+          <img src="https://i.pravatar.cc/20?img=9" alt="Sophie Martin" style={{ width: 18, height: 18, borderRadius: "50%", border: `1.5px solid ${ACC}`, objectFit: "cover" }} />
+        </div>
+      </div>
+
+      {/* Welcome banner */}
+      <div style={{ background: SF, borderBottom: `1px solid ${BD}`, padding: "7px 14px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div>
+          <p style={{ color: TXT, fontWeight: 600, fontSize: "0.44rem", marginBottom: 1 }}>Bonjour, Sophie ☀</p>
+          <p style={{ color: DIM, fontSize: "0.28rem" }}>3 contacts à relancer · Score moyen : <span style={{ color: ACC, fontWeight: 600 }}>{profile.mainMetric}</span></p>
+        </div>
+        <div style={{ background: ACC, padding: "3px 8px", borderRadius: 3 }}>
+          <span style={{ color: "white", fontSize: "0.27rem", fontWeight: 600 }}>+ Nouveau contact</span>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div style={{ padding: "8px 14px", background: "#FFFFFF" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "3fr 2fr", gap: 8 }}>
+          {/* Contact list with photos */}
+          <div>
+            <p style={{ color: DIM, fontSize: "0.25rem", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 5 }}>Contacts prioritaires</p>
+            {contacts.map((c, idx) => (
+              <div key={c.name} style={{ display: "flex", alignItems: "center", gap: 7, padding: "5px 7px", background: idx === 0 ? "#FFF7ED" : "transparent", borderRadius: 4, marginBottom: 3, border: idx === 0 ? `1px solid #FED7AA` : `1px solid transparent` }}>
+                <img src={c.photo} alt={c.name} style={{ width: 26, height: 26, borderRadius: "50%", flexShrink: 0, objectFit: "cover", border: `1.5px solid ${BD}` }} />
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ color: TXT, fontSize: "0.31rem", fontWeight: 600 }}>{c.name}</p>
+                  <p style={{ color: DIM, fontSize: "0.25rem" }}>{c.company} · {c.last}</p>
+                </div>
+                <div style={{ display: "flex", gap: 2 }}>
+                  {[1,2,3,4,5].map(i => <div key={i} style={{ width: 4, height: 4, borderRadius: "50%", background: i <= c.score ? ACC : "#FED7AA" }} />)}
+                </div>
+                <div style={{ background: c.tagBg, padding: "1px 6px", borderRadius: 100 }}>
+                  <span style={{ color: c.tagClr, fontSize: "0.24rem", fontWeight: 600 }}>{c.tag}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Activity panel */}
+          <div>
+            <p style={{ color: DIM, fontSize: "0.25rem", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 5 }}>Activité</p>
+            <div style={{ background: SF, borderRadius: 5, border: `1px solid ${BD}`, padding: "7px 8px", marginBottom: 5 }}>
+              {[["47", "relations actives"], ["12", "à relancer"], ["8", "en négociation"]].map(([v, l]) => (
+                <div key={l} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+                  <span style={{ color: DIM, fontSize: "0.25rem" }}>{l}</span>
+                  <span style={{ color: TXT, fontWeight: 700, fontSize: "0.48rem" }}>{v}</span>
+                </div>
+              ))}
+            </div>
+            <div style={{ background: ACC, borderRadius: 4, padding: "6px 8px" }}>
+              <p style={{ color: "rgba(255,255,255,.7)", fontSize: "0.24rem", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 2 }}>Score engagement</p>
+              <p style={{ color: "white", fontWeight: 700, fontSize: "0.85rem", lineHeight: 1, marginBottom: 3 }}>{profile.mainMetric}</p>
+              <div style={{ height: 4, background: "rgba(255,255,255,.2)", borderRadius: 100 }}>
+                <div style={{ height: 4, background: "white", width: `${profile.progressPct}%`, borderRadius: 100, transition: "width .7s" }} />
+              </div>
+              <p style={{ color: "rgba(255,255,255,.55)", fontSize: "0.22rem", marginTop: 2 }}>Qualité relation client · {profile.progressPct}%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Status bar */}
+      <div style={{ background: SF, borderTop: `1px solid ${BD}`, padding: "3px 14px", display: "flex", justifyContent: "space-between" }}>
+        <span style={{ color: "#16A34A", fontSize: "0.24rem" }}>● Synchro en temps réel</span>
+        <span style={{ color: DIM, fontSize: "0.24rem" }}>Dernière activité · il y a 3 min</span>
+      </div>
+    </div>
+  );
+}
+
+/* ── Mockup Conducteur — light + bordeaux technique ── */
+
+function ConducteurMockup({ profile }: { profile: Profile }) {
+  const BG    = "#FAFAFA";
+  const WHITE = "#FFFFFF";
+  const BD    = "#E5E7EB";
+  const BR    = "#7B1C2E";
+  const BR_LT = "#F3E4E7";
+  const TXT   = "#111827";
+  const DIM   = "#6B7280";
+  const urgClr = (u: string) => u === "urgent" ? "#DC2626" : u === "today" ? "#D97706" : DIM;
+  const urgBg  = (u: string) => u === "urgent" ? "#FEF2F2" : u === "today" ? "#FFFBEB" : "#F9FAFB";
+  const urgLbl = (u: string) => u === "urgent" ? "URGENT" : u === "today" ? "AUJOURD'HUI" : "DEMAIN";
+
+  const tiles = [
+    { label: "Objectif",    value: `${profile.progressPct}%`, sub: "J-8",      accent: BR      },
+    { label: "Pipeline",    value: "48 500 €",                sub: "3 deals",  accent: TXT     },
+    { label: "Temps/deal",  value: "2.3 h",                   sub: "optimal",  accent: "#16A34A" },
+  ];
+
+  return (
+    <div style={{ background: BG, border: `1px solid ${BD}`, overflow: "hidden", boxShadow: "0 16px 48px rgba(0,0,0,.07), 0 2px 8px rgba(0,0,0,.04)" }}>
+      {/* Top bar */}
+      <div style={{ background: WHITE, borderBottom: `1px solid ${BD}`, padding: "5px 12px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
+          <div style={{ width: 10, height: 10, background: BR, transform: "rotate(45deg)", flexShrink: 0 }} />
+          <span style={{ color: TXT, fontWeight: 700, fontSize: "0.42rem", letterSpacing: "0.12em" }}>Providence</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
+          <span style={{ color: DIM, fontSize: "0.27rem" }}>M. Fontaine · Commercial</span>
+          <div style={{ background: BR_LT, border: `1px solid ${BR}`, padding: "1px 6px" }}>
+            <span style={{ color: BR, fontSize: "0.25rem", fontWeight: 700, letterSpacing: "0.08em" }}>J-8</span>
+          </div>
+          <div style={{ width: 18, height: 18, background: BR, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ color: "white", fontWeight: 700, fontSize: "4.5px" }}>MF</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div style={{ background: WHITE, borderBottom: `1px solid ${BD}`, padding: "0 10px", display: "flex" }}>
+        {["Dashboard", "Priorités", "Pipeline", "Objectifs"].map((tab) => (
+          <div key={tab} style={{ padding: "5px 7px", borderBottom: tab === "Dashboard" ? `2px solid ${BR}` : "2px solid transparent", marginBottom: -1 }}>
+            <span style={{ color: tab === "Dashboard" ? BR : DIM, fontSize: "0.28rem", letterSpacing: "0.08em", textTransform: "uppercase", fontWeight: tab === "Dashboard" ? 600 : 400 }}>{tab}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Content */}
+      <div style={{ padding: "8px 10px", background: BG }}>
+        {/* 3 metric tiles */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 4, marginBottom: 7 }}>
+          {tiles.map((t) => (
+            <div key={t.label} style={{ background: WHITE, border: `1px solid ${BD}`, borderTop: `3px solid ${t.accent}`, padding: "5px 7px" }}>
+              <p style={{ color: DIM, fontSize: "0.24rem", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 2 }}>{t.label}</p>
+              <p style={{ color: t.accent, fontWeight: 700, fontSize: "0.78rem", lineHeight: 1, marginBottom: 1 }}>{t.value}</p>
+              <p style={{ color: DIM, fontSize: "0.22rem" }}>{t.sub}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Priorities + summary */}
+        <div style={{ background: WHITE, border: `1px solid ${BD}`, padding: "6px 8px", marginBottom: 5 }}>
+          <p style={{ color: DIM, fontSize: "0.25rem", textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 5 }}>Priorités semaine</p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
+            {profile.priorities!.map((p) => (
+              <div key={p.rank} style={{ background: urgBg(p.urgency), border: `1px solid ${BD}`, borderLeft: `3px solid ${urgClr(p.urgency)}`, padding: "5px 8px", display: "flex", alignItems: "center", gap: 7 }}>
+                <span style={{ color: DIM, fontWeight: 700, fontSize: "0.44rem", width: 10, textAlign: "center" }}>#{p.rank}</span>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <p style={{ color: TXT, fontSize: "0.3rem", fontWeight: 600 }}>{p.name}</p>
+                  <p style={{ color: BR, fontWeight: 700, fontSize: "0.42rem" }}>{p.value}</p>
+                </div>
+                <div style={{ background: urgBg(p.urgency), border: `1px solid ${urgClr(p.urgency)}`, padding: "1px 5px" }}>
+                  <span style={{ color: urgClr(p.urgency), fontSize: "0.22rem", fontWeight: 700, letterSpacing: "0.08em" }}>{urgLbl(p.urgency)}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Summary strip */}
+        <div style={{ background: BR, padding: "5px 8px", display: "flex", alignItems: "center", gap: 12 }}>
+          <div>
+            <p style={{ color: "rgba(255,255,255,.6)", fontSize: "0.22rem", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 1 }}>Valeur totale</p>
+            <p style={{ color: "white", fontWeight: 700, fontSize: "0.58rem" }}>48 500 €</p>
+          </div>
+          <div style={{ width: 1, height: 20, background: "rgba(255,255,255,.2)" }} />
+          <div>
+            <p style={{ color: "rgba(255,255,255,.6)", fontSize: "0.22rem", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 1 }}>Probabilité moy.</p>
+            <p style={{ color: "white", fontWeight: 700, fontSize: "0.58rem" }}>74%</p>
+          </div>
+          <div style={{ marginLeft: "auto" }}>
+            <div style={{ background: "rgba(255,255,255,.15)", border: "1px solid rgba(255,255,255,.3)", padding: "2px 8px" }}>
+              <span style={{ color: "white", fontSize: "0.25rem", fontWeight: 600 }}>Voir tous les deals →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Status bar */}
+      <div style={{ background: WHITE, borderTop: `1px solid ${BD}`, padding: "3px 12px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+          <span style={{ color: "#16A34A", fontSize: "0.23rem" }}>● Connecté</span>
+          <span style={{ color: BD }}>|</span>
+          <span style={{ color: DIM, fontSize: "0.23rem" }}>Synchro il y a 1 min</span>
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+          <span style={{ color: DIM, fontSize: "0.22rem", textTransform: "uppercase", letterSpacing: "0.06em" }}>Objectif</span>
+          <div style={{ height: 3, width: 36, background: BD }}>
+            <div style={{ height: 3, background: BR, width: `${profile.progressPct}%` }} />
+          </div>
+          <span style={{ color: BR, fontSize: "0.23rem", fontWeight: 700 }}>{profile.progressPct}%</span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function AppMockup({ profile }: { profile: Profile }) {
+  if (profile.id === "analytique") return <AnalytiqueMockup profile={profile} />;
+  if (profile.id === "expressif") return <ExpressifMockup profile={profile} />;
+  return <ConducteurMockup profile={profile} />;
 }
 
 /* ── Section principale ─────────────────── */

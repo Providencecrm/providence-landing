@@ -59,20 +59,6 @@ export default function HowItWorks() {
           ))}
         </div>
 
-        {/* Callout */}
-        <div className="mt-8 border border-brand/20 bg-brand/5 p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
-          <div>
-            <p className="type-label text-[0.62rem] text-text-primary mb-1">
-              Votre CRM existant reste en place.
-            </p>
-            <p className="text-xs text-text-secondary">
-              Providence s&apos;intègre à Salesforce, HubSpot, Pipedrive et tout CRM via API — pas de migration.
-            </p>
-          </div>
-          <a href="#demo" className="type-btn bg-brand text-white px-6 py-3 hover:bg-brand-dark whitespace-nowrap text-[0.6rem] flex-shrink-0">
-            Essai gratuit 48h
-          </a>
-        </div>
       </div>
     </section>
   );
