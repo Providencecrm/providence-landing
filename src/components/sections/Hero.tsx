@@ -34,11 +34,9 @@ export default function Hero() {
             <p className="type-label text-text-tertiary animate-fade-in">
               CRM adaptatif // Nouvelle génération
             </p>
-            <h1 className="type-heading text-[clamp(2.8rem,6vw,5rem)] text-text-primary">
-              <span className="line-reveal"><span className="line-reveal-inner">Vous n&apos;avez pas</span></span>
-              <span className="line-reveal"><span className="line-reveal-inner delay-100">un problème de recrutement.</span></span>
-              <span className="line-reveal"><span className="line-reveal-inner delay-200 text-brand">Vous avez un problème</span></span>
-              <span className="line-reveal"><span className="line-reveal-inner delay-300 text-brand">de placement.</span></span>
+            <h1 className="type-heading text-[clamp(1.8rem,3.5vw,2.8rem)] text-text-primary">
+              <span className="line-reveal"><span className="line-reveal-inner">Vous n&apos;avez pas un problème de recrutement.</span></span>
+              <span className="line-reveal"><span className="line-reveal-inner delay-200 text-brand">Vous avez un problème de placement.</span></span>
             </h1>
             <p className="text-sm text-text-secondary leading-relaxed max-w-md animate-fade-in-up delay-500">
               Providence adapte automatiquement son interface au profil
